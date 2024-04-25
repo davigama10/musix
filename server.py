@@ -4,12 +4,12 @@ from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from database import (get_db, Session)
 
-from models import Filme
 from sqlalchemy.orm import Session
 from fastapi import status
 from fastapi.responses import JSONResponse
 
-from schemas.filme import FilmeSchema
+from models.models import User
+from schemas.user import UserSchema
 
 from typing import List
 
@@ -30,16 +30,19 @@ def show_devices():
     return {"SUCCESS"}
 
 
-@app.post("/add_filme")
-def add_filme(filme_schema: FilmeSchema, db: Session=Depends(get_db)):
+@app.post("/add_user")
+def add_filme(user_schema: UserSchema, db: Session=Depends(get_db)):
     #data = FilmeSchema(titulo='ta dando onda', capa='C:\\Users\\davig\\Documents\\projeto_eng_software\\ta_dando_onda.jpg')
-    data = Filme(**filme_schema.dict())
+    print(user_schema)
+    data = User(**user_schema.dict())
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    print(data)
     db.add(data)
     db.commit()
     return ("OK")
 
 
-@app.get("/filmes")
+@app.get("/user")
 def get_filmes(db: Session=Depends(get_db)):
-    banco_dados: List[Filme] = db.query(Filme).all()
-    return banco_dados
+    data: List[User] = db.query(User).all()
+    return data
