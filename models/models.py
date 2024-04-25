@@ -29,11 +29,11 @@ class Review(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     id_user = Column(Integer, ForeignKey('users.id'), nullable=False)
     id_album = Column(Integer, ForeignKey('album.id'), nullable=False)
-    review_content = Column(String, nullable=False)
-    date_time = Column(String, nullable=False)
+    review_content = Column(String, nullable=True)
+    date_time = Column(String, nullable=True)
     rate = Column(Integer, nullable=False)
-    likes = Column(Integer, nullable=False)
-    coments = Column(Integer, nullable=False)
+    likes = Column(Integer, nullable=True)
+    coments = Column(Integer, nullable=True)
 
 
 class Album(Base):
@@ -44,9 +44,9 @@ class Album(Base):
     author = Column(String, nullable=False)
     gender = Column(String, nullable=False)
     infos = Column(String, nullable=False)
-    average_rating = Column(Float, nullable=False)
-    reviews_number = Column(Integer, nullable=False)
-    in_lists = Column(Integer, nullable=False)
+    average_rating = Column(Float, nullable=True)
+    reviews_number = Column(Integer, nullable=True)
+    in_lists = Column(Integer, nullable=True)
     #tracks
 
 
@@ -56,8 +56,8 @@ class Coment(Base):
     id_user = Column(Integer, ForeignKey('users.id'), nullable=False)
     id_review = Column(Integer, ForeignKey('review.id'), nullable=False)
     content = Column(String, nullable=False)
-    date_time = Column(String, nullable=False)
-    likes = Column(Integer, nullable=False)
+    date_time = Column(String, nullable=True)
+    likes = Column(Integer, nullable=True)
 
 
 class List(Base):
@@ -65,8 +65,8 @@ class List(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     id_user = Column(Integer, ForeignKey('users.id'), nullable=False)
     title = Column(String, nullable=False)
-    description = Column(String, nullable=False)
-    date_time = Column(String, nullable=False)
+    description = Column(String, nullable=True)
+    date_time = Column(String, nullable=True)
     content_amount = Column(Integer, nullable=False)
 
 
