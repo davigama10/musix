@@ -24,6 +24,12 @@ class User(Base):
     reviews = Column(Integer, nullable=True)
 
 
+class Followers(Base):
+    __tablename__ = "followers"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    id_user = Column(Integer, ForeignKey('users.id'), nullable=False)
+    id_follower = Column(Integer, ForeignKey('users.id'), nullable=False)
+
 class Review(Base):
     __tablename__ = "review"
     id = Column(Integer, primary_key=True, autoincrement=True)
