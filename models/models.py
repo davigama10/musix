@@ -5,12 +5,6 @@ from sqlalchemy import Column, Float, ForeignKey, Integer, String, Boolean, Uniq
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 
-class Filme(Base):
-    __tablename__ = "filme"
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    titulo = Column(String, nullable=False)
-    capa = Column(String, nullable=False)
-
 
 class User(Base):
     __tablename__ = "users"
@@ -53,7 +47,7 @@ class Album(Base):
     average_rating = Column(Float, nullable=True)
     reviews_number = Column(Integer, nullable=True)
     in_lists = Column(Integer, nullable=True)
-    #tracks
+    tracks = Column(Integer, nullable=True)
 
 
 class Coment(Base):
@@ -76,7 +70,12 @@ class List(Base):
     content_amount = Column(Integer, nullable=False)
 
 
-# class tracks
+class Track(Base):
+    __tablename__ = "track"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    id_album = Column(Integer, ForeignKey('album.id'), nullable=False)
+    title = Column(String, nullable=False)
+    duration = Column(Integer, nullable=False)
 
 
 Base.metadata.create_all(bind=engine)
