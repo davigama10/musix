@@ -4,43 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/credentials.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='/credentials.css') }}">
     <title>Login</title>
 </head>
 <body>
-    <div class="login-box">
-        <div class="musix-header">
-            <header>Musix</header>
+    <form method="POST">
+        <div class="login-box">
+            <div class="musix-header">
+                <header>Musix</header>
+            </div>
+            <div class="login-header">
+                <header>Sign Up</header>
+            </div>
+            <label for="user_name "id="user">Usuário</label>
+            <div class="input-box">
+                <input type="text" class="input-field" name = "user_name" autocomplete="off" required>
+            </div>
+            <label for="email "id="login">Email</label>
+            <div class="input-box">
+                <input type="text" class="input-field" name = "email" autocomplete="off" required>
+            </div>
+            <label for="senha" id="password">Senha</label>
+            <div class="input-box">
+                <input type="password" class="input-field" name="senha" autocomplete="off" required>
+            </div>
+            <div class="forgot">
+                <section>
+                    <input type="checkbox" id="check">
+                    <label for="check">Mantenha-me conectado</label>
+                </section>
+            </div>
+            <div class="input-submit">
+                <button class="submit-btn" id="submit"></button>
+                <label for="submit">Criar conta</label>
+            </div>
+    
+            <div class="sign-up-link">
+                <p>Já tem uma conta? <a href="login.html">Log in</a></p>
+            </div>
         </div>
-        <div class="login-header">
-            <header>Sign Up</header>
-        </div>
-        <label id="user">Usuário</label>
-        <div class="input-box">
-            <input type="text" class="input-field" autocomplete="off" required>
-        </div>
-        <label id="login">Email</label>
-        <div class="input-box">
-            <input type="text" class="input-field" autocomplete="off" required>
-        </div>
-        <label id="password">Senha</label>
-        <div class="input-box">
-            <input type="password" class="input-field" autocomplete="off" required>
-        </div>
-        <div class="forgot">
-            <section>
-                <input type="checkbox" id="check">
-                <label for="check">Mantenha-me conectado</label>
-            </section>
-        </div>
-        <div class="input-submit">
-            <button class="submit-btn" id="submit"></button>
-            <label for="submit">Criar conta</label>
-        </div>
-        <div class="sign-up-link">
-            <p>Já tem uma conta? <a href="login.html">Log in</a></p>
-        </div>
-    </div>
+    </form>
     <script src="./script.js"></script>
 </body>
 </html>
