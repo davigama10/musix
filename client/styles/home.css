@@ -1,0 +1,93 @@
+html, body {
+    margin: 0;
+    background-color: #1f1458;
+    font-family: 'Varela Round', sans-serif;
+    line-height: 1.6;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* a seguir, a barra superior horizontal de navegação */
+
+#nav-bar {
+    /* both remove default browser settings */
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.nav-left-icon {
+    color: #22b596;
+}
+
+.nav-center-icon {
+    color: white;
+}
+
+.nav-right-icon {
+    color: blue;
+}
+
+#nav-left{
+    float: left;
+}
+
+#nav-center{
+    float: left;
+    width: 80%;
+}
+
+#nav-right{
+    float: right;
+}
+
+#nav-bar > li > a {
+    display: block;
+    color: #22b596;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#nav-bar> li > a:hover {
+    background-color: #111;
+}
+
+/* a seguir, as duas colunas e seus conteúdos */
+
+p {
+    font-size: .95em;
+    margin-bottom: 1.5em;
+}
+
+h2,
+h3,
+a {
+    color: #093a58;
+}
+
+h2,
+h3 {
+    margin-top: 0;
+}
+
+.container-columns {
+    padding: 30px;
+}
+
+.left{
+    display: inline-block;
+    width:73%;
+    margin-right: 30px;
+    background-color: darkgray;
+}
+
+.right {
+    display: inline-block;
+    width:23%;
+    vertical-align: top;
+    background-color: darkgray;
+}
