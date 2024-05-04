@@ -3,13 +3,14 @@
 html, body {
     margin: 0;
     padding: 0;
-    background-color: #1f1458;
     font-family: 'Varela Round', sans-serif;
     line-height: 1.6;
+    background-color: #1f1458;
 }
 
 * {
     box-sizing: border-box;
+
 }
 
 /* a seguir, a barra superior horizontal de navegação */
@@ -81,7 +82,7 @@ header {
     display: inline-block;
     width:73%;
     margin-right: 30px;
-    background-color: darkgray;
+    background-color: #1f1458;
 }
 
 .right {
@@ -109,52 +110,25 @@ header {
     display: table;
 }
 
-.input-submit{
-    position: relative;
-}
-
-.submit-btn{
-    width: 100%;
-    height: 40px;
-    background: orange;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.input-submit label{
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    color: white;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-}
-
-.submit-btn:hover{
-}
-
-.review{
-    padding-bottom: 20px;
-}
-
-.limit-text-lenght {
-   overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 2; /* number of lines to show */
-           line-clamp: 2;
-   -webkit-box-orient: vertical;
-}
-
 a {
     text-decoration: none;
     color: white;
 }
 
-header > p {
+.p {
     color: white;
+}
+
+.container {
+    column-width: 100px;
+    column-gap: 20px;
+    text-align: center;
+    padding-top: 40px;
+}
+
+.card {
+    break-inside: avoid;
+    border-radius: 10px;
+    background-color: #4E37CC;
+    padding: 5px;
 }
