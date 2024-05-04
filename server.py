@@ -40,6 +40,13 @@ app.mount("/static", StaticFiles(directory="client/styles"), name="static")
 # carregando templates com Jinja2
 templates = Jinja2Templates(directory='client/templates')
 
+## HOME ========================================================================================================================
+# Rota para renderizar a tela de cadastro
+@app.get("/home", response_class=HTMLResponse)
+def render_home(request: Request):
+    return templates.TemplateResponse("home.html", {"request": request})
+
+
 ## CADASTRO ========================================================================================================================
 # Rota para renderizar a tela de cadastro
 @app.get("/add_user", response_class=HTMLResponse)
@@ -60,7 +67,6 @@ def add_user(request: Request, db: Session=Depends(get_db), form_data: UserSchem
     return templates.TemplateResponse("signup.html", {"request": request})
 
 ## LOGIN ========================================================================================================================
-
 # Rota de login
 @app.get("/login", response_class=HTMLResponse)
 def render_login(request: Request):
@@ -73,7 +79,7 @@ def valida_login(request: Request, db: Session=Depends(get_db), form_data: UserL
     aux_username: User = db.query(User).filter(User.user_name == form_data.username).first()
 
     if not aux_username:
-        return "username not found"       
+        return "Username not found"       
     if aux_username:
         if aux_username.senha != form_data.senha:
             return "Senha Incorreta"
