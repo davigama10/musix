@@ -6,7 +6,7 @@
     <title>Musix</title>
     <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="../styles/home.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', path='/home.css') }}"/>
 </head>
 
 <body>
@@ -14,7 +14,9 @@
 <div class="wrap">
 
     <header>
-        <p>exemplo</p>
+        <div class="musix-header">
+            <header>Musix</header>
+        </div>
         <nav>
             <ul class="nav_links">
                 <li><a href="#">Services</a></li>
@@ -27,24 +29,24 @@
                 <li><a href="#">About</a></li>
             </ul>
         </nav>
-        <p>exemplo</p>
     </header>
 
     <div class="container-columns">
 
         <div class="left col">
             <div class="clearfix">
+                {% for review in reviews %}
                 <div class="review">
-                    <img class="img2" src="../images/pineapple.jpg" alt="Pineapple" width="90" height="90">
-                    <p>Review by abacaxi</p>
+                    <img class="img2" src="../images/1.jpg" width="90" height="90">
+                    <p>Review by {{users[review.id_user - 1].user_name}}</p>
                     <a href="album.html">
-                        suco de fruta - album
+                       {{albums[review.id_album - 1].title}} - Album
                     </a>
                     <br>
                     <br>
                     <br>
                     <p class="limit-text-lenght">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...
+                        {{review.review_content}}
                     <p>
                     <a href="review.html">
                         <div class="input-submit">
@@ -53,42 +55,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="review">
-                    <img class="img2" src="../images/pineapple.jpg" alt="Pineapple" width="90" height="90">
-                    <p>Review by abacaxi</p>
-                    suco de fruta - album
-                    <br>
-                    <br>
-                    <br>
-                    <p class="limit-text-lenght">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...
-                    <p>
-                    <a href="review.html">
-                        <div class="input-submit">
-                            <button class="submit-btn" id="submit"> </button>
-                            <label for="submit">Ver review completa</label>
-                        </div>
-                    </a>
-                </div>
-                <div class="review">
-                    <img class="img2" src="../images/pineapple.jpg" alt="Pineapple" width="90" height="90">
-                    <p>Review by abacaxi</p>
-                    <a href="album.html">
-                        suco de fruta - album
-                    </a>
-                    <br>
-                    <br>
-                    <br>
-                    <p class="limit-text-lenght">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...
-                    <p>
-                    <a href="review.html">
-                        <div class="input-submit">
-                            <button class="submit-btn" id="submit"> </button>
-                            <label for="submit">Ver review completa</label>
-                        </div>
-                    </a>
-                </div>
+                {% endfor %}
             </div>
         </div>
 

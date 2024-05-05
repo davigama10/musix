@@ -41,10 +41,18 @@ app.mount("/static", StaticFiles(directory="client/styles"), name="static")
 templates = Jinja2Templates(directory='client/templates')
 
 ## HOME ========================================================================================================================
-# Rota para renderizar a tela de cadastro
+# Rota para renderizar a tela de cadastro com as reviews
 @app.get("/home", response_class=HTMLResponse)
-def render_home(request: Request):
-    return templates.TemplateResponse("home.html", {"request": request})
+def render_home(request: Request, db: Session=Depends(get_db)):
+
+    reviews: Review = db.query(Review).all()
+    users: User = db.query(User).all()
+    albums: Album = db.query(Album).all()
+
+    
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    
+    return templates.TemplateResponse("home.html", {"request": request, "reviews": reviews, "albums": albums, "users": users})
 
 
 ## CADASTRO ========================================================================================================================
