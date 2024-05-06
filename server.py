@@ -1,5 +1,6 @@
 from fastapi import Depends, FastAPI, Response, status, Request, Form
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse, HTMLResponse
@@ -37,18 +38,54 @@ app.add_middleware(
 # pasta para images
 app.mount("/images", StaticFiles(directory="client/images"), name='images')
 
-# pasta para images
-app.mount("/images2", StaticFiles(directory="client/images2"), name='images2')
-
 # pasta static para o css
 app.mount("/static", StaticFiles(directory="client/styles"), name="static")
 
 # carregando templates com Jinja2
 templates = Jinja2Templates(directory='client/templates')
 
+## ALBUM =============================================================================
 
+# Rota para retornar um album pelo seu id
+@app.get("/album/{album_id}/{user_name}", response_class=HTMLResponse)
+def get_album(request: Request, album_id: int, user_name: int, db: Session=Depends(get_db)):
+    
+    album: Album = db.query(Album).filter(Album.id == album_id).first()
+    user: User = db.query(User).filter(User.user_name == user_name).first()
+    
+    if not album:
+        return "not found"
+    
+    reviews: Review = db.query(Review).filter(Review.id_album == album_id).all()
+    users: User = db.query(User).all()
+    
+    return templates.TemplateResponse("album.html", {"request": request, "reviews": reviews, "album": album, "users": users, "user": user})
+
+@app.post("/album/{album_id}/{user_name}")
+def post_review_album(request: Request, album_id: int, db: Session=Depends(get_db)):
+    
+    return 'ok'
 
 ## REVIEW ============================================================================
+
+# Rota para cadastrar uma review
+@app.post("/album/{album_id}")
+def add_review(review_schema: ReviewSchema, db: Session=Depends(get_db)):
+    data = Review(**review_schema.dict())
+    db.query(Album).filter(Album.id == data.id_album).update({"reviews_number": Album.reviews_number + 1})
+    data.coments = 0
+    data.likes = 0
+    db.add(data)
+    db.commit()
+    return ("OK")
+
+# Rota para retornar todos os comentários de uma review
+@app.get("/coments/{review_id}")
+def get_coments(review_id: int, db: Session=Depends(get_db)):
+    data: List[Coment] = db.query(Coment).filter(Coment.id_review == review_id).all()    
+    return data
+
+
 # Rota para retornar uma review pelo id dela
 @app.get("/review/{review_id}", response_class=HTMLResponse)
 def get_review(request: Request, review_id: int, db: Session=Depends(get_db)):
@@ -65,15 +102,16 @@ def get_review(request: Request, review_id: int, db: Session=Depends(get_db)):
 
 ## HOME ========================================================================================================================
 # Rota para renderizar a tela de cadastro com as reviews
-@app.get("/home", response_class=HTMLResponse)
-def render_home(request: Request, db: Session=Depends(get_db)):
+@app.get("/home/{user_name}", response_class=HTMLResponse)
+def render_home(request: Request, user_name: str, db: Session=Depends(get_db)):
 
+    user_name = user_name
     reviews: Review = db.query(Review).all()
     users: User = db.query(User).all()
     albums: Album = db.query(Album).all()
 
     
-    return templates.TemplateResponse("home.html", {"request": request, "reviews": reviews, "albums": albums, "users": users})
+    return templates.TemplateResponse("home.html", {"request": request, "reviews": reviews, "albums": albums, "users": users,"user_name": user_name})
 
 
 ## CADASTRO =====================================================================================================================
@@ -102,7 +140,7 @@ def render_login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
 # Rota que valida o login
-@app.post("/login_user")
+@app.post("/login_user", response_class=RedirectResponse)
 def valida_login(request: Request, db: Session=Depends(get_db), form_data: UserLoginSchema = Depends(UserLoginSchema.as_form)):
 
     aux_username: User = db.query(User).filter(User.user_name == form_data.username).first()
@@ -113,9 +151,7 @@ def valida_login(request: Request, db: Session=Depends(get_db), form_data: UserL
         if aux_username.senha != form_data.senha:
             return "Senha Incorreta"
     
-    return "OKEI"
-    # Essa rota vai direcionar pra home
-    # return templates.TemplateResponse("login.html", {"request": request})
+    return RedirectResponse(url=f"http://127.0.0.1:8000/home/"+ str(aux_username.user_name), status_code=303)
 
 @app.get("/")
 def show_devices():
@@ -155,19 +191,6 @@ def add_album(album_schema: AlbumSchema, db: Session=Depends(get_db)):
     return ("OK")
 
 
-
-#rota para cadastrar uma review
-@app.post("/add_review")
-def add_review(review_schema: ReviewSchema, db: Session=Depends(get_db)):
-    data = Review(**review_schema.dict())
-    db.query(Album).filter(Album.id == data.id_album).update({"reviews_number": Album.reviews_number + 1})
-    data.coments = 0
-    data.likes = 0
-    db.add(data)
-    db.commit()
-    return ("OK")
-
-
 #rota para buscar os seguidores de um usuário pelo id dele
 @app.get("/followers/{user_id}")
 def get_followers(user_id: int, db: Session=Depends(get_db)):
@@ -193,12 +216,6 @@ def add_follower(follower_schema: FollowerSchema, db: Session=Depends(get_db)):
     db.commit()
     return ("OK")
 
-
-#rota para retornar todos os comentários de uma review
-@app.get("/coments/{review_id}")
-def get_coments(review_id: int, db: Session=Depends(get_db)):
-    data: List[Coment] = db.query(Coment).filter(Coment.id_review == review_id).all()    
-    return data
 
 #rota para cadastrar um comentário
 #+ incrementa o número de comentarios da review

@@ -20,7 +20,7 @@
         </div>
         <nav>
             <ul class="nav_links">
-                <li><a href="#">Services</a></li>
+                <li><a href="#">Profile</a></li>
                 <form action="#" class="search">
                     <input type="text" placeholder="Search" name="search">
                     <button>
@@ -40,7 +40,7 @@
                 <div class="review">
                     <img class="img2" src="images/{{review.id_album}}.jpg" width="90" height="90">
                     <p>Review by {{users[review.id_user - 1].user_name}}</p>
-                    <a href="album.html">
+                    <a href="http://localhost:8000/album/{{review.id_album}}/{{user_name}}">
                        {{albums[review.id_album - 1].title}}
                     </a>
                     <br>

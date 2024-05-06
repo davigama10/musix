@@ -8,6 +8,16 @@ html, body {
     line-height: 1.6;
 }
 
+.musix-header{
+    text-align: left;
+}
+.musix-header header{
+    color: white;
+    font-size: 40px;
+    font-weight: 600;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 * {
     box-sizing: border-box;
 }

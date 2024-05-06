@@ -14,7 +14,9 @@
 <div class="wrap">
 
     <header>
-        <p>exemplo</p>
+        <div class="musix-header">
+            <header>ALBUM</header>
+        </div>
         <nav>
             <ul class="nav_links">
                 <li><a href="">Services</a></li>
@@ -34,28 +36,37 @@
 
         <div class="left col">
             <div class="clearfix">
-                <img class="img2" src="../images/pineapple.jpg" alt="Pineapple" width="90" height="90">
-                <p>suco de fruta</p>
+                <img class="img2" src="images2/{{album.id}}.jpg" width="90" height="90">
+                <p>{{album.title}}</p>
                 <br>
                 <br>
                 <br>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    <br>
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    <br>
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    {% for review in reviews %}
+                    <div class="review">
+                        <p>Review by {{users[review.id_user - 1].user_name}}</p>
+                        <a href="http://localhost:8000/album/{{review.id_album}}">
+                        </a>
+                        <p class="limit-text-lenght">
+                            {{review.review_content}}
+                        <p>
+                        <a href="http://localhost:8000/review/{{review.id}}">
+                            <div class="input-submit">
+                                <button class="submit-btn" id="submit"> </button>
+                                <label for="submit">Ver review completa</label>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
                 <p>
                 <br>
                 Review
                 <br>
                 <a href="">
-                    <textarea name="comment" form="user-review"></textarea>
-                    <form action="" id="user-review">
+                    <textarea name="comment" form="user_review"></textarea>
+                    <form method="POST" id="user_review">
                         <div class="input-submit">
-                            <button class="submit-btn" id="submit"> </button>
+                            <button class="submit-btn" name="user_review" id="submit"> </button>
                             <label for="submit">Enviar</label>
                         </div>
                     </form>
