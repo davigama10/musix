@@ -14,7 +14,9 @@
 <div class="wrap">
 
     <header>
-        <p>exemplo</p>
+        <div class="musix-header">
+            <header>Musix</header>
+        </div>
         <nav>
             <ul class="nav_links">
                 <li><a href="#">Services</a></li>
@@ -27,24 +29,25 @@
                 <li><a href="#">About</a></li>
             </ul>
         </nav>
-        <p>exemplo</p>
     </header>
 
     <div class="container-columns">
 
         <div class="left col">
             <div class="clearfix">
-                <img class="img2" src="../images/pineapple.jpg" alt="Pineapple" width="90" height="90">
-                <p>Review by abacaxi</p>
-                <a href="album.html">
-                    suco de fruta - album
-                </a>
-                <br>
-                <br>
-                <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet...
-                <br>
-                <br>
+                <div class="review">
+                    <img class="img2" src="images2/{{review.id_album}}.jpg" width="90" height="90">
+                    <p>Review by {{user.user_name}}</p>
+                    <a href="album.html">
+                        {{album.title}}
+                    </a>
+                    <br>
+                    <br>
+                    <br>
+                        <p class="limit-text-lenght">
+                            {{review.review_content}}
+                        </p>
+                </div>
             </div>
         </div>
 

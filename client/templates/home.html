@@ -30,17 +30,17 @@
             </ul>
         </nav>
     </header>
-
+    
     <div class="container-columns">
 
         <div class="left col">
             <div class="clearfix">
                 {% for review in reviews %}
                 <div class="review">
-                    <img class="img2" src="../images/1.jpg" width="90" height="90">
+                    <img class="img2" src="images/{{review.id_album}}.jpg" width="90" height="90">
                     <p>Review by {{users[review.id_user - 1].user_name}}</p>
                     <a href="album.html">
-                       {{albums[review.id_album - 1].title}} - Album
+                       {{albums[review.id_album - 1].title}}
                     </a>
                     <br>
                     <br>
@@ -48,7 +48,7 @@
                     <p class="limit-text-lenght">
                         {{review.review_content}}
                     <p>
-                    <a href="review.html">
+                    <a href="http://localhost:8000/review/{{review.id}}">
                         <div class="input-submit">
                             <button class="submit-btn" id="submit"> </button>
                             <label for="submit">Ver review completa</label>

@@ -34,11 +34,34 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# pasta para images
+app.mount("/images", StaticFiles(directory="client/images"), name='images')
+
+# pasta para images
+app.mount("/images2", StaticFiles(directory="client/images2"), name='images2')
+
 # pasta static para o css
 app.mount("/static", StaticFiles(directory="client/styles"), name="static")
 
 # carregando templates com Jinja2
 templates = Jinja2Templates(directory='client/templates')
+
+
+
+## REVIEW ============================================================================
+# Rota para retornar uma review pelo id dela
+@app.get("/review/{review_id}", response_class=HTMLResponse)
+def get_review(request: Request, review_id: int, db: Session=Depends(get_db)):
+    
+    review: Review = db.query(Review).filter(Review.id == review_id).first()
+    
+    if not review:
+        return "not found"
+    
+    user: User = db.query(User).filter(User.id == review.id_user).first()
+    album: Album = db.query(Album).filter(Album.id == review.id_album).first()
+    
+    return templates.TemplateResponse("review.html", {"request": request, "review": review, "album": album, "user": user})
 
 ## HOME ========================================================================================================================
 # Rota para renderizar a tela de cadastro com as reviews
@@ -50,12 +73,10 @@ def render_home(request: Request, db: Session=Depends(get_db)):
     albums: Album = db.query(Album).all()
 
     
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    
     return templates.TemplateResponse("home.html", {"request": request, "reviews": reviews, "albums": albums, "users": users})
 
 
-## CADASTRO ========================================================================================================================
+## CADASTRO =====================================================================================================================
 # Rota para renderizar a tela de cadastro
 @app.get("/add_user", response_class=HTMLResponse)
 def render_signup(request: Request):
@@ -133,14 +154,6 @@ def add_album(album_schema: AlbumSchema, db: Session=Depends(get_db)):
     db.commit()
     return ("OK")
 
-
-#rota para retornar uma review pelo id dela
-@app.get("/review/{review_id}")
-def get_review(review_id: int, db: Session=Depends(get_db)):
-    data: List[Review] = db.query(Review).filter(Review.id == review_id).all()
-    if not data:
-        return "not found"
-    return data
 
 
 #rota para cadastrar uma review
