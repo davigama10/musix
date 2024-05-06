@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Musix</title>
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{{ url_for('static', path='/home.css') }}"/>
+    <link rel="stylesheet" href="../styles/resultado-pesquisa.css"/>
+</head>
+
+<body>
+
+<div class="wrap">
+
+    <header>
+        <div class="musix-header">
+            <header>Musix</header>
+        </div>
+        <nav>
+            <ul class="nav_links">
+                <li><a href="">Services</a></li>
+                <form action="#" class="search">
+                    <input type="text" placeholder="Search" name="search">
+                    <button>
+                        Go
+                    </button>
+                </form>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+        <p>exemplo</p>
+    </header>
+
+    <div class="container-columns">
+
+        <div class="left col">
+            <div class="clearfix">
+                {% for review in reviews %}
+                <div class="review">
+                    <img class="img2" src="images/{{review.id_album}}.jpg" width="90" height="90">
+                    <p>Review by {{users[review.id_user - 1].user_name}}</p>
+                    <a href="http://localhost:8000/album/{{review.id_album}}/{{user_name}}">
+                        {{albums[review.id_album - 1].title}}
+                    </a>
+                    <br>
+                    <br>
+                    <br>
+                    <p class="limit-text-lenght">
+                        {{review.review_content}}
+                    <p>
+                        <a href="http://localhost:8000/review/{{review.id}}">
+                            <div class="input-submit">
+                                <button class="submit-btn" id="submit"> </button>
+                                <label for="submit">Ver review completa</label>
+                            </div>
+                        </a>
+                </div>
+                {% endfor %}
+                <br>
+                <br>
+                <br>
+                {% for review in reviews %}
+                <div class="review">
+                    <img class="img2" src="images/{{review.id_album}}.jpg" width="90" height="90">
+                    <p>Review by {{users[review.id_user - 1].user_name}}</p>
+                    <a href="http://localhost:8000/album/{{review.id_album}}/{{user_name}}">
+                        {{albums[review.id_album - 1].title}}
+                    </a>
+                    <br>
+                    <br>
+                    <br>
+                    <p class="limit-text-lenght">
+                        {{review.review_content}}
+                    <p>
+                        <a href="http://localhost:8000/review/{{review.id}}">
+                            <div class="input-submit">
+                                <button class="submit-btn" id="submit"> </button>
+                                <label for="submit">Ver review completa</label>
+                            </div>
+                        </a>
+                </div>
+                {% endfor %}
+                <br>
+                <br>
+                <br>
+                {% for review in reviews %}
+                <div class="review">
+                    <img class="img2" src="images/{{review.id_album}}.jpg" width="90" height="90">
+                    <p>Review by {{users[review.id_user - 1].user_name}}</p>
+                    <a href="http://localhost:8000/album/{{review.id_album}}/{{user_name}}">
+                        {{albums[review.id_album - 1].title}}
+                    </a>
+                    <br>
+                    <br>
+                    <br>
+                    <p class="limit-text-lenght">
+                        {{review.review_content}}
+                    <p>
+                        <a href="http://localhost:8000/review/{{review.id}}">
+                            <div class="input-submit">
+                                <button class="submit-btn" id="submit"> </button>
+                                <label for="submit">Ver review completa</label>
+                            </div>
+                        </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+        <div class="right">
+
+            <div class="col">
+                <h2>Artistas top 10 da semana</h2>
+                <p>
+                    1 -- KENGAN
+                    <br>
+                    <br>
+                    2 -- BERNARD
+                    <br>
+                    <br>
+                    3 -- PERRY TROL
+                    <br>
+                    <br>
+                    4 -- JUSE
+                    <br>
+                    <br>
+                    5 -- PISADINHA
+                    <br>
+                    <br>
+                    6 -- RAXEXE
+                    <br>
+                    <br>
+                    7 -- CLEITAN
+                </p>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

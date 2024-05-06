@@ -11,6 +11,7 @@ html, body {
 .musix-header{
     text-align: left;
 }
+
 .musix-header header{
     color: white;
     font-size: 40px;
@@ -228,4 +229,58 @@ a {
 
 header > p {
     color: white;
+}
+
+.between-right-columns {
+    width: 100%;
+    background-color: #1f1458;
+    height: 20px;
+}
+
+.profile-name {
+    margin: 0 auto;
+    display: inline;
+}
+
+.follow-submit{
+    margin: 0 auto;
+    display: inline;
+    position: relative;
+    padding-left: 30px;
+}
+
+.follow-btn{
+    background-color: orange;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 20px 35px 9px 70px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.follow-submit label{
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    color: white;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.input-submit label{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    color: white;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
 }
