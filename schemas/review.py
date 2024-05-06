@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from fastapi import Form
 
 class ReviewSchema(BaseModel):
     id_user: int

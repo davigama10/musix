@@ -20,6 +20,7 @@ from schemas.coment import ComentSchema
 from schemas.track import TrackSchema
 from schemas.list import ListSchema
 from schemas.login_user import UserLoginSchema
+from schemas.review_user import ReviewUserSchema
 
 
 from typing import List
@@ -36,7 +37,7 @@ app.add_middleware(
 )
 
 # pasta para images
-app.mount("/images", StaticFiles(directory="client/images"), name='images')
+app.mount("/imgs", StaticFiles(directory="static"), name="imgs")
 
 # pasta static para o css
 app.mount("/static", StaticFiles(directory="client/styles"), name="static")
@@ -44,11 +45,23 @@ app.mount("/static", StaticFiles(directory="client/styles"), name="static")
 # carregando templates com Jinja2
 templates = Jinja2Templates(directory='client/templates')
 
+## PROFILE =============================================================================
+
+@app.get("/profile/{user_name}", response_class=HTMLResponse)
+def get_album(request: Request, user_name: str, db: Session=Depends(get_db)):
+    
+    user: User = db.query(User).filter(User.user_name == user_name).first()
+    user_id = user.id
+    
+    reviews: Review = db.query(Review).filter(Review.id_user == user_id).all()
+
+    return templates.TemplateResponse("profile.html", {"request": request, "user_name": user_name, "reviews": reviews})
+
 ## ALBUM =============================================================================
 
 # Rota para retornar um album pelo seu id
 @app.get("/album/{album_id}/{user_name}", response_class=HTMLResponse)
-def get_album(request: Request, album_id: int, user_name: int, db: Session=Depends(get_db)):
+def get_album(request: Request, album_id: int, user_name: str, db: Session=Depends(get_db)):
     
     album: Album = db.query(Album).filter(Album.id == album_id).first()
     user: User = db.query(User).filter(User.user_name == user_name).first()
@@ -61,23 +74,29 @@ def get_album(request: Request, album_id: int, user_name: int, db: Session=Depen
     
     return templates.TemplateResponse("album.html", {"request": request, "reviews": reviews, "album": album, "users": users, "user": user})
 
-@app.post("/album/{album_id}/{user_name}")
-def post_review_album(request: Request, album_id: int, db: Session=Depends(get_db)):
-    
-    return 'ok'
+# Rota para cadastrar uma review a um album
+@app.post("/album/{album_id}/{user_name}", response_class=RedirectResponse)
+def post_review_album(request: Request, album_id: int, user_name: str, db: Session=Depends(get_db), form_data: ReviewUserSchema = Depends(ReviewUserSchema.as_form)):
 
-## REVIEW ============================================================================
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 
-# Rota para cadastrar uma review
-@app.post("/album/{album_id}")
-def add_review(review_schema: ReviewSchema, db: Session=Depends(get_db)):
-    data = Review(**review_schema.dict())
-    db.query(Album).filter(Album.id == data.id_album).update({"reviews_number": Album.reviews_number + 1})
+    data = Review(**form_data.dict())
+    db.query(Album).filter(Album.id == album_id).update({"reviews_number": Album.reviews_number + 1})
+
+    user: User = db.query(User).filter(User.user_name == user_name).first()
+    data.id_user = user.id
+
+    data.id_album = album_id
+
     data.coments = 0
     data.likes = 0
+    data.date_time = "2024"
     db.add(data)
     db.commit()
-    return ("OK")
+    
+    return RedirectResponse(url=f"http://127.0.0.1:8000/home/"+ str(user_name), status_code=303)
+
+## REVIEW ============================================================================
 
 # Rota para retornar todos os comentários de uma review
 @app.get("/coments/{review_id}")

@@ -32,7 +32,7 @@
                 <li><a href="#">About</a></li>
             </ul>
         </nav>
-        <p>exemplo</p>
+        <li><a href="#">Perfil</a></li>
     </header>
 
     <div class="container-columns">
@@ -53,6 +53,7 @@
                         <p class="limit-text-lenght">
                             {{review.review_content}}
                         <p>
+                        Nota- {{review.rate}}
                         <a href="http://localhost:8000/review/{{review.id}}">
                             <div class="input-submit">
                                 <button class="submit-btn" id="submit"> </button>
@@ -63,20 +64,18 @@
                     {% endfor %}
                 <p>
                 <br>
-                <div class="inline-div">
-                    Nota:
-                </div>
-                <div class="inline-div">
-                    <textarea cols="15" rows="15" class="inline-txtarea"></textarea>
-                </div>
-                <br>
-                <br>
-                Review
-                <br>
-                <textarea name="comment" form="user_review"></textarea>
-                <form method="POST" id="user_review">
+                <form method="POST">
+                    <label for="rate" id="nota">Nota</label>
+                    <div class="input-box">
+                        <input type="number" class="input-field" name="rate" autocomplete="off" required>
+                    </div>
+                    <br>
+                    <br>
+                    Review
+                    <br>
+                    <textarea name="review_content"></textarea>
                     <div class="input-submit">
-                        <button class="submit-btn" name="user_review" id="submit"> </button>
+                        <button class="submit-btn" id="submit"> </button>
                         <label for="submit">Enviar</label>
                     </div>
                 </form>

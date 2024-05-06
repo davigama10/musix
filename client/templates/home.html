@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="{{ url_for('static', path='/home.css') }}"/>
     <link rel="stylesheet" href="../styles/home.css"/>
+
 </head>
 
 <body>
@@ -32,7 +33,7 @@
                 <li><a href="#">About</a></li>
             </ul>
         </nav>
-        <p>exemplo</p>
+        <li><a href="http://localhost:8000/profile/{{user_name}}">Perfil</a></li>
     </header>
     
     <div class="container-columns">
@@ -41,14 +42,16 @@
             <div class="clearfix">
                 {% for review in reviews %}
                 <div class="review">
-                    <img class="img2" src="images/{{review.id_album}}.jpg" width="90" height="90">
+                    <img class="img2" src="{{ url_for('static', path='images/{{review.id_album}}.jpg') }}" width="90" height="90">
                     <p>Review by {{users[review.id_user - 1].user_name}}</p>
+
                     <a href="http://localhost:8000/album/{{review.id_album}}/{{user_name}}">
                        {{albums[review.id_album - 1].title}}
                     </a>
                     <br>
                     <br>
                     <br>
+                    Nota - {{review.rate}}
                     <p class="limit-text-lenght">
                         {{review.review_content}}
                     <p>
@@ -67,27 +70,13 @@
         <div class="right">
 
             <div class="col">
-                <h2>Artistas top 10 da semana</h2>
+                <h2>Top albums da semana</h2>
                 <p>
-                    1 -- KENGAN
-                    <br>
-                    <br>
-                    2 -- BERNARD
-                    <br>
-                    <br>
-                    3 -- PERRY TROL
-                    <br>
-                    <br>
-                    4 -- JUSE
-                    <br>
-                    <br>
-                    5 -- PISADINHA
-                    <br>
-                    <br>
-                    6 -- RAXEXE
-                    <br>
-                    <br>
-                    7 -- CLEITAN
+                    {% for album in albums %}
+                        {{album.id}} - {{album.title}}
+                        <br>
+                        <br>
+                    {% endfor %}
                 </p>
             </div>
 
@@ -97,22 +86,17 @@
             <div class="col" style="padding-bottom: 10px;">
 
 
-                <h2>Usuários</h2>
-
-                <p class="profile-name"> 1 -- KENGAN </p>
-                <div class="follow-submit">
-                    <button class="follow-btn" id="follow"> </button>
-                    <label for="follow">seguir</label>
-                </div>
-
-                <br>
-                <br>
-
-                <p class="profile-name"> 1 -- KAIDORO </p>
-                <div class="follow-submit">
-                    <button class="follow-btn" id="follow"> </button>
-                    <label for="follow">seguir</label>
-                </div>
+                <h2>Usuários Recomendados</h2>
+                
+                {% for user in users %}
+                    <p class="profile-name"> {{user.user_name}} </p>
+                    <div class="follow-submit">
+                        <button class="follow-btn" id="follow"> </button>
+                        <label for="follow">seguir</label>
+                    </div>
+                    <br>
+                    <br>
+                {% endfor %}
 
             </div>
 
